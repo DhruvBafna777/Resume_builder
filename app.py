@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from groq import Groq
 
 # Load Environment Variables
-load_dotenv()
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+
 client = Groq(api_key=GROQ_API_KEY)
 
 # --- UI ENHANCEMENT 1: Page Config & Custom CSS ---
@@ -91,4 +91,5 @@ if generate_btn:
             except Exception as e:
                 st.error(f"API Error: {e}")
     else:
+
         st.warning("👈 Please fill in all the details in the sidebar and left column first!")
