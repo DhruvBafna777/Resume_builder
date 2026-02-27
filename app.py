@@ -1,10 +1,16 @@
 import streamlit as st
 import os
-from dotenv import load_dotenv
 from groq import Groq
 
-# Load Environment Variables
-GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+if "GROQ_API_KEY" in st.secrets:
+    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+else:
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        pass
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 client = Groq(api_key=GROQ_API_KEY)
 
@@ -93,3 +99,4 @@ if generate_btn:
     else:
 
         st.warning("👈 Please fill in all the details in the sidebar and left column first!")
+
