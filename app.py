@@ -14,10 +14,8 @@ else:
 
 client = Groq(api_key=GROQ_API_KEY)
 
-# --- UI ENHANCEMENT 1: Page Config & Custom CSS ---
 st.set_page_config(page_title="AI Resume Builder Pro", page_icon="💼", layout="wide")
 
-# Injecting some basic CSS to make buttons and headers pop
 st.markdown("""
 <style>
     .stButton>button {
@@ -58,7 +56,6 @@ if generate_btn:
     if name and role and skills and projects:
         with st.spinner("Groq is formatting your full resume..."):
             st.header("📄 Generated Resume")
-            # --- The Magic Prompt for a FULL Resume ---
             prompt = f"""
             You are an expert technical recruiter. Write a full, highly professional resume in Markdown format for {name}.
             Target Role: {role}
@@ -83,10 +80,8 @@ if generate_btn:
                 
                 resume_text = response.choices[0].message.content
                 
-                # Display the beautiful markdown
                 st.markdown(resume_text)
                 
-                # --- UI ENHANCEMENT 4: Download Button ---
                 st.download_button(
                     label="⬇️ Download Resume (.txt)",
                     data=resume_text,
@@ -99,4 +94,5 @@ if generate_btn:
     else:
 
         st.warning("👈 Please fill in all the details in the sidebar and left column first!")
+
 
